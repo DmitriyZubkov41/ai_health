@@ -1,0 +1,34 @@
+# Секреты
+.env
+.env.local
+.env.*.local
+
+# Виртуальное окружение
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Логи и базы данных
+*.log
+*.db
+*.sqlite3
+
+# Файлы с данными
+*.pkl
+*.pickle
