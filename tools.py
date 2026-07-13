@@ -1,7 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from pathlib import Path
-from datetime import datetime, date
+#from pathlib import Path
+#from datetime import datetime, date
+from datetime import date
 import json
 from dotenv import load_dotenv
 import os
@@ -175,7 +176,7 @@ def load_history_from_db(session_id: str, limit: int = 50) -> list:
     Args:
         session_id: Идентификатор сессии
         limit: Максимальное количество сообщений для загрузки
-    Returns:
+    Return:
         list: Список сообщений в формате для GigaChat
     """
     conn = get_db_connection()
@@ -194,7 +195,7 @@ def load_history_from_db(session_id: str, limit: int = 50) -> list:
         rows = cursor.fetchall()
         
         # Преобразуем в список сообщений (в обратном порядке — от старых к новым)
-        messages = []
+        messages = [] # список сообщений
         for row in reversed(rows):
             role, content, function_call, function_name = row
             
