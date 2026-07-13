@@ -84,7 +84,7 @@ def get_index():
         return HTMLResponse(content="<h1>Файл templates/index.html не найден</h1>", status_code=404)
 
 @app.post("/chat")
-def chat(user_message: ChatRequest, request: Request): # откуда берется Requests
+def chat(user_message: ChatRequest, request: Request):
     """Обработка сообщений с сохранением истории в БД"""
     
     # Получаем или создаём session_id
