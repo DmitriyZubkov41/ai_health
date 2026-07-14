@@ -24,7 +24,7 @@
 Я в web_agent.py использовал 2 способ.
 
 ### Запуск программы ###
-<code>uvicorn my_web_agent:app --reload --port 5000</code>
+<code>uvicorn web_agent:app --reload --port 5000</code>
 
 В браузере открываем: http://127.0.0.1:5000/<br>
 Открывается интерфейс AI-доктора.
