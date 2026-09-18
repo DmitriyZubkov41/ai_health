@@ -11,8 +11,9 @@ path_catalog=os.getenv("PATH_CATALOG")
 password=os.getenv("DB_PASSWORD")
 user=os.getenv("DB_USER")
 
-   
+# Функции или как ещё называют инструменты агента   
 def get_current_date():
+    """Получает дату сегодня"""
     result = {
         "status": "success",
         "date": date.today().strftime("%d.%m.%Y")
@@ -22,7 +23,7 @@ def get_current_date():
 
 def get_health_metric(metric_name: str = None):
     """
-    Получает показатели здоровья из db_health таблица metrics
+    Получает показатели здоровья из postgres базы данных db_health таблица metrics
     """
     engine = get_db_engine() 
     try:
@@ -34,7 +35,7 @@ def get_health_metric(metric_name: str = None):
         engine.dispose()
 
 
-def get_analiz_from_excel(parameters: list) -> str:
+def get_analiz_from_excel(parameters: list[str]) -> str:
     """
     Получает результаты анализов из Excel-файла.
     Returns:

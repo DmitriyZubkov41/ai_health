@@ -654,18 +654,50 @@
             return chat;
         }
 
-        function deleteChat(id) {
+        async function deleteChat(id) {
             if (chats.length <= 1) {
                 alert('Нельзя удалить последний чат');
                 return;
             }
-            chats = chats.filter(c => c.id !== id);
-            if (currentChatId === id) {
-                currentChatId = chats[0].id;
+    
+            try {
+                // 1. Удаляем с сервера
+                const response = await fetch('/delete_chat', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: id }),
+                });
+        
+                if (!response.ok) throw new Error('Ошибка удаления на сервере');
+        
+                // 2. Удаляем из localStorage
+                chats = chats.filter(c => c.id !== id);
+                if (currentChatId === id) {
+                    currentChatId = chats[0].id;
+                }
+                saveChats();
+                renderAll();
+                closeContextMenu();
+        
+            } 
+            // В функции sendMessage() при ошибке
+            catch (error) {
+                document.getElementById('typingIndicator').classList.remove('active');
+    
+                // Если ошибка связана с JSON, очищаем localStorage
+                if (error.message.includes('JSON') || error.message.includes('Unexpected token')) {
+                    console.warn('Очищаем localStorage из-за ошибки JSON');
+                    localStorage.removeItem('aiDoctorChats');
+                    location.reload();
+                    return;
+                }
+    
+                chat.messages.push({ 
+                    type: 'bot', 
+                    text: `❌ Ошибка соединения: ${error.message}`, 
+                    plots: [] 
+                });
             }
-            saveChats();
-            renderAll();
-            closeContextMenu();
         }
 
         function renameChat(id, newTitle) {

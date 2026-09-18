@@ -10,7 +10,7 @@ import requests
 from dotenv import load_dotenv
 from tools import *
 from database.db import load_history_from_db, save_message_to_db, clear_history
-from pprint import pprint
+
 
 # --- Загрузка переменных окружения ---
 load_dotenv()
@@ -85,10 +85,10 @@ def chat(user_message: ChatRequest):
     
     response = client.chat(query)
     print("\nRESPONSE:")
-    pprint(response)
+    print(response)
     message = response.choices[0].message
     print("\nMESSAGE:")
-    pprint(message)
+    print(message)
     
     
     # Проверяем, нужно ли вызвать функцию
